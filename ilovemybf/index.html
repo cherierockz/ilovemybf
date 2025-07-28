@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>for lukas 💌</title>
+  <link rel="stylesheet" href="index.css">
+  <style>
+    body {
+      background: linear-gradient(135deg, #ff758c, #ff7eb3);
+      color: #fff;
+      text-align: center;
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .fancy-button {
+      display: none;
+      margin: 10px;
+      padding: 12px 24px;
+      background: white;
+      color: #ff7eb3;
+      border: none;
+      border-radius: 30px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      text-decoration: none;
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+      transition: transform 0.2s ease, box-shadow 0.3s ease, opacity 0.5s ease;
+    }
+
+    .fancy-button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    #envelope-container {
+      position: relative;
+      width: 200px;
+      height: 150px;
+      cursor: pointer;
+    }
+
+    .envelope-img {
+      position: absolute;
+      width: 100%;
+      top: 0;
+      left: 0;
+      transition: opacity 0.8s ease;
+    }
+
+    #closed {
+      z-index: 2;
+      opacity: 1;
+    }
+
+    #open {
+      z-index: 1;
+      opacity: 0;
+    }
+
+    .letter {
+      position: absolute;
+      top: 70px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 120px;
+      opacity: 0;
+      z-index: 3;
+    }
+
+    .letter-text {
+      position: absolute;
+      top: 70px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 120px;
+      padding: 10px;
+      background: #fff;
+      color: #000;
+      font-size: 14px;
+      opacity: 0;
+      z-index: 4;
+      border-radius: 4px;
+      text-align: left;
+    }
+
+    @keyframes riseAndZoom {
+      0% {
+        opacity: 0;
+        transform: translate(-50%, 20px) scale(1);
+      }
+      30% {
+        opacity: 1;
+        transform: translate(-50%, -40px) scale(1);
+      }
+      100% {
+        opacity: 1;
+        transform: translate(-50%, -200px) scale(1.5);
+      }
+    }
+
+    @keyframes fallAndShrink {
+      0% {
+        opacity: 1;
+        transform: translate(-50%, -200px) scale(1.5);
+      }
+      70% {
+        opacity: 1;
+        transform: translate(-50%, -40px) scale(1);
+      }
+      100% {
+        opacity: 0;
+        transform: translate(-50%, 20px) scale(1);
+      }
+    }
+  </style>
+</head>
+<body>
+    <h1>Lukas & Cherie! <3</h1>
+    <h2>Open for a suprise!</h2>
+  <div id="envelope-container" onclick="toggleEnvelope()">
+    <img id="closed" class="envelope-img" src="images.png" alt="Closed Envelope">
+    <img id="open" class="envelope-img" src="open.png" alt="Open Envelope">
+    <img class="letter" id="letter1" src="letter.png" alt="Letter">
+    <div id="letterText" class="letter-text">
+      Dear Lukas,<br>
+      I'll love you forever and always.<br>
+      You make me feel loved and you make me feel special.<br><br>
+      From, Cherie 💖
+    </div>
+  </div>
+
+
+  <button id="annivButton" class="fancy-button" onclick="window.location.href='aniv.html'">anniversary!</button>
+  <button id="playlistButton" class="fancy-button" onclick="window.location.href='playlist.html'">playlist</button>
+
+  <script>
+    let opened = false;
+    const annivButton = document.getElementById("annivButton");
+    const playlistButton = document.getElementById("playlistButton");
+
+    function toggleEnvelope() {
+      const closed = document.getElementById("closed");
+      const open = document.getElementById("open");
+      const letter = document.getElementById("letter1");
+      const text = document.getElementById("letterText");
+
+      if (!opened) {
+        closed.style.opacity = "0";
+        open.style.opacity = "1";
+        letter.style.animation = "riseAndZoom 3s ease-out forwards";
+        text.style.animation = "riseAndZoom 3s ease-out forwards";
+        annivButton.style.display = "inline-block";
+        playlistButton.style.display = "inline-block";
+        annivButton.style.opacity = "1";
+        playlistButton.style.opacity = "1";
+      } else {
+        closed.style.opacity = "1";
+        open.style.opacity = "0";
+        letter.style.animation = "fallAndShrink 2s ease-out forwards";
+        text.style.animation = "fallAndShrink 2s ease-out forwards";
+        annivButton.style.opacity = "0";
+        playlistButton.style.opacity = "0";
+        setTimeout(() => {
+          annivButton.style.display = "none";
+          playlistButton.style.display = "none";
+        }, 500);
+      }
+
+      opened = !opened;
+    }
+  </script>
+</body>
+</html>

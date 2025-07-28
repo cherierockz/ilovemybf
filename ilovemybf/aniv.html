@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>anniversary!</title>
+  <link rel="stylesheet" href="index.css">
+  <style>
+    body {
+      background: linear-gradient(135deg, #ff758c, #ff7eb3);
+      color: white;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 50px 20px;
+    }
+
+    h1 {
+      font-size: 2.5em;
+    }
+
+    .anniversary-text {
+      font-size: 18px;
+      margin-top: 20px;
+      background: rgba(255, 255, 255, 0.1);
+      padding: 15px 20px;
+      border-radius: 12px;
+      display: inline-block;
+      white-space: pre-line;
+      backdrop-filter: blur(4px);
+    }
+
+    .back-button {
+      margin-top: 30px;
+      padding: 12px 24px;
+      font-size: 16px;
+      font-weight: bold;
+      background: white;
+      color: #ff7eb3;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      transition: all 0.3s ease;
+    }
+
+    .back-button:hover {
+      background: #ffe0ed;
+      transform: translateY(-2px);
+    }
+  </style>
+</head>
+<body>
+  <h1>Lukas & Cherie <3</h1>
+  <div id="anniversaryTimer" class="anniversary-text"></div>
+
+  <button class="back-button" onclick="goBack()">← Go Back</button>
+
+  <script>
+    function updateAnniversaryTimer() {
+      const startDate = new Date("2025-07-24T00:00:00");
+      const now = new Date();
+      const diff = now - startDate;
+
+      if (diff < 0) {
+        document.getElementById("anniversaryTimer").innerText = "Counting down to your anniversary...";
+        return;
+      }
+
+      const totalSeconds = Math.floor(diff / 1000);
+      const seconds = totalSeconds % 60;
+      const totalMinutes = Math.floor(totalSeconds / 60);
+      const minutes = totalMinutes % 60;
+      const totalHours = Math.floor(totalMinutes / 60);
+      const hours = totalHours % 24;
+      const totalDays = Math.floor(totalHours / 24);
+      const years = Math.floor(totalDays / 365);
+      const days = totalDays % 365;
+
+      const nextAnniversary = new Date(startDate);
+      nextAnniversary.setFullYear(now.getFullYear());
+      if (now > nextAnniversary) {
+        nextAnniversary.setFullYear(now.getFullYear() + 1);
+      }
+
+      const options = { month: 'long', day: 'numeric', year: 'numeric' };
+      const nextAnnivStr = nextAnniversary.toLocaleDateString(undefined, options);
+
+      document.getElementById("anniversaryTimer").innerText =
+        `💖 Together for ${years} years, ${days} days, ${hours} hours, ${minutes} minutes, ${seconds} seconds \n` +
+        `Next anniversary: ${nextAnnivStr}`;
+    }
+
+    function goBack() {
+      window.history.back();
+    }
+
+    setInterval(updateAnniversaryTimer, 1000);
+    updateAnniversaryTimer();
+  </script>
+</body>
+</html>
